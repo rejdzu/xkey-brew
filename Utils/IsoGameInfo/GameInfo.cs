@@ -8,9 +8,9 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Web;
 using System.Xml;
-using XkeyApp.Utils.Shared;
+using XkeyBrew.Utils.Shared;
 
-namespace XkeyApp.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameInfo
 {
     /// <summary>
     /// Contains game information from web

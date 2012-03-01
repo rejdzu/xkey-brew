@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
-using XkeyApp.Utils.Shared;
+using XkeyBrew.Utils.Shared;
 
-namespace XkeyApp.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameInfo
 {
     /// <summary>
     /// Class contains info from XeXHeader of deafult.xex file

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
-namespace XkeyApp.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameInfo
 {
     /// <summary>
     /// Class contains deafault.xex file with properties like, file size, sector of file or XeXHeader

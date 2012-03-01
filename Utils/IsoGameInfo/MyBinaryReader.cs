@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace XkeyApp.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameInfo
 {
     public enum EndianType { LittleEndian, BigEndian }
 

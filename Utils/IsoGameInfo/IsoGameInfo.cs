@@ -6,7 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace XkeyApp.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameInfo
 {
     public class IsoGameInfo : IDisposable
     {

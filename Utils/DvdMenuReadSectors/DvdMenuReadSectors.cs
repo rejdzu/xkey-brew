@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
-namespace XkeyApp.Utils.DvdMenuReadSectors
+namespace XkeyBrew.Utils.DvdMenuReadSectors
 {
     public class DvdMenuReadSectors
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace XkeyApp
+namespace XkeyBrew
 {
     public partial class FmMain : Form
     {

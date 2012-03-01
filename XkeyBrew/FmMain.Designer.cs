@@ -1,4 +1,4 @@
-﻿namespace XkeyApp
+﻿namespace XkeyBrew
 {
     partial class FmMain
     {
