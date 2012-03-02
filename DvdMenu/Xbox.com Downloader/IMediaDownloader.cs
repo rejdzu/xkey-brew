@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace XboxDvdMenu
+{
+    interface IMediaDownloader
+    {
+
+        byte[] DownloadBanner(string gameID, string filename);
+        byte[] DownloadCover(string gameID, string filename);
+        byte[] DownloadTrailer(string gameID, string filename);
+
+        string DownloadTitle(string gameID, string filename);
+        string DownloadDesc(string gameID, string filename);
+        string DownloadProp(string property ,string gameID, string filename);
+        string AddonName { get;  }
+    
+    }
+}
