@@ -36,5 +36,12 @@ namespace Xbox.com_Downloader
             return null;
         }
 
+        private string addonName = String.Empty;
+
+        public string AddonName
+        {
+            get { return addonName; }
+        }
+
     }
 }
