@@ -507,7 +507,8 @@ new[] {"W", "X", "Y","Z"},
 
         private void Form1Load(object sender, EventArgs e)
         {
-            LoadPlugins();
+            // TODO: This one creates error, cannot find plugin
+            //LoadPlugins();
 
 
 
