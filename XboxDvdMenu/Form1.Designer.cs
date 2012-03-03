@@ -219,8 +219,6 @@
             // chkTraillers
             // 
             this.chkTraillers.AutoSize = true;
-            this.chkTraillers.Checked = true;
-            this.chkTraillers.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTraillers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(164)))), ((int)(((byte)(28)))));
             this.chkTraillers.Location = new System.Drawing.Point(385, 227);
             this.chkTraillers.Name = "chkTraillers";
