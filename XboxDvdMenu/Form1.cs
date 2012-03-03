@@ -71,6 +71,8 @@ new[] {"W", "X", "Y","Z"},
             int currentTitleSet=0;
             while (currentTitleSet < totalTitleSets)
             {
+                Values["TITLESETPGC"] = string.Empty;
+          
                 IEnumerable<ISO> titlesetIso =
                     (from ISO d in ArrIsolist orderby d.Gamename select d).Skip(currentTitleSet*titlesetIsoLimit).Take(
                         titlesetIsoLimit).ToArray();
@@ -94,7 +96,7 @@ new[] {"W", "X", "Y","Z"},
                                                 " menu;";
                     gameiso.JumpToTrailler = "jump titleset " + +(currentTitleSet + 1) + " title " + isoindex + ";";
                    
-                     Values["page"] =
+                     
                 
                     Values["JumpToGameDetails"] =gameiso.JumpToGameDetails;
                     Values["JumpToSelectThisGame"] = gameiso.JumpToSelectThisGame;

@@ -473,7 +473,12 @@
     <Content Include="Themes\PalTheme\PrevButtonStyle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="temp\temp.tmp" />
+    <Content Include="DVDstyler\backgrounds\COPYING">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="temp\temp.tmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -493,7 +498,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DVDstyler\backgrounds\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
