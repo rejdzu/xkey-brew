@@ -118,9 +118,9 @@ namespace XboxDvdMenu
                 {
                     if (chkArtwork)
                     {
-                        Iso iso = new Iso(this.IsoFile.FullName, true);
                         try
                         {
+                            Iso iso = new Iso(this.IsoFile.FullName, true);
                             if (iso.DefaultXeX != null)
                             {
                                 TextBox log1 = this.Log;
@@ -191,9 +191,9 @@ namespace XboxDvdMenu
                 {
                     if (chkArtwork)
                     {
-                        Iso iso = new Iso(this.IsoFile.FullName, true);
                         try
                         {
+                            Iso iso = new Iso(this.IsoFile.FullName, true);
                             if (iso.DefaultXeX != null)
                             {
                                 TextBox log1 = this.Log;
@@ -419,10 +419,11 @@ namespace XboxDvdMenu
             {
                 if (chkTrailers)
                 {
-                    Iso isoGame = new Iso(this.IsoFile.FullName, true);
-                    if (isoGame.DefaultXeX != null)
+
+                    try
                     {
-                        try
+                        Iso isoGame = new Iso(this.IsoFile.FullName, true);
+                        if (isoGame.DefaultXeX != null)
                         {
                             TextBox textBox = this.Log;
                             textBox.Text = string.Concat(textBox.Text, "Xbox.com", this.Path, Environment.NewLine);
@@ -448,14 +449,15 @@ namespace XboxDvdMenu
                                 return str;
                             }
                         }
-                        catch (Exception)
-                        {
-                            this.ProgressBar1.Value = 0;
-                            TextBox textBox1 = this.Log;
-                            textBox1.Text = string.Concat(textBox1.Text, "Failed", this.Path, Environment.NewLine);
-                        }
+                    }
+                    catch (Exception)
+                    {
+                        this.ProgressBar1.Value = 0;
+                        TextBox textBox1 = this.Log;
+                        textBox1.Text = string.Concat(textBox1.Text, "Failed", this.Path, Environment.NewLine);
                     }
                 }
+
                 TextBox log2 = this.Log;
                 log2.Text = string.Concat(log2.Text, "Not Found", this.Path, Environment.NewLine);
                 return "media\\blank.mpg";
