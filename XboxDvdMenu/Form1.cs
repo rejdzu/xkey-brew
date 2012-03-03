@@ -36,6 +36,16 @@ new[] {"W", "X", "Y","Z"},
         public Form1()
         {
             InitializeComponent();
+
+            //test method
+            
+            /*ArrIsolist.Clear();
+            Values["DRIVE"] = "K:\\";
+            if (Directory.Exists(string.Concat(Values["DRIVE"], "\\games\\")))
+            {
+                DirSearch(string.Concat(Values["DRIVE"], "\\games\\"));
+            }
+            CreateSectorMap();*/
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -404,48 +414,39 @@ new[] {"W", "X", "Y","Z"},
         {
 
             Log.Text = "Awaiting Code";
-            //Log.Text += "Creating sector map..." + Environment.NewLine;
-            //var testFile = new StreamWriter(Application.StartupPath + "\\Menu.xsk", false);
-            //try
-            //{
+            Log.Text += "Creating sector map..." + Environment.NewLine;
+            var testFile = new StreamWriter(Application.StartupPath + "\\Menu.xsk", false);
+            try
+            {
+                List<byte[]> sectors = new DvdMenuReadSectors(Application.StartupPath + "\\dvd.iso").FillListWithMenuSectors();
                 
-            //   var sectors = new DvdMenuReadSectors(Application.StartupPath + "\\dvd.iso").GetFilesWithSectors(false);
-                  
-            //        var rs = from d in sectors
-            //                      where d.Key.Contains("_0.VOB")
-            //                      select
-            //                          new
-            //                              {
-            //                                  Sector =d.Value,
-            //                                  Filename = d.Key
-            //                              };
-            //        SHA1 sha = new SHA1CryptoServiceProvider();
-            //        int i = 0;
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                int i = 0;
 
-            //    var orderedISO =
-            //        (from ISO d in ArrIsolist orderby d.Gamename select d).ToArray();
-                  
-            //    foreach (var r in rs)
-            //        {
-            //            var encoding = new UTF8Encoding();
-            //            byte[] data =
-            //                encoding.GetBytes(
-            //                    ((ISO)orderedISO[i]).Path.Replace(Values["DRIVE"].ToString(), "").Replace("\\", "/").
-            //                        Substring("/game/".Length));
-            //         testFile.BaseStream.Write(r.Sector, 0, 4);
-            //            byte[] hash = sha.ComputeHash(data);
-            //            testFile.BaseStream.Write(hash, 0, hash.Length);
-            //            i += 1;
-            //        }
-            //        testFile.BaseStream.Flush();
-            //        testFile.Flush();
-            //        testFile.Close();
-               
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw;
-            //}
+                var orderedISO =
+                    (from ISO d in ArrIsolist orderby d.Gamename select d).ToArray();
+
+                foreach (byte[] sector in sectors)
+                {
+                    var encoding = new UTF8Encoding();
+                    byte[] data =
+                        encoding.GetBytes(
+                            ((ISO)orderedISO[i]).Path.Replace(Values["DRIVE"].ToString(), "").Replace("\\", "/").
+                                Substring("/game/".Length));
+                    testFile.BaseStream.Write(sector, 0, 4);
+                    byte[] hash = sha.ComputeHash(data);
+                    testFile.BaseStream.Write(hash, 0, hash.Length);
+                    i += 1;
+                }
+                testFile.BaseStream.Flush();
+                testFile.Flush();
+                testFile.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private void LoadThemes()

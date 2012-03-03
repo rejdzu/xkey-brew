@@ -25,6 +25,14 @@ namespace XkeyBrew.Utils.BLBinaryReader
             this.endianType = endianType;
         }
 
+        public void Skip(int length)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                base.ReadByte();
+            }
+        }
+
         public override short ReadInt16()
         {
             if (this.endianType == EndianType.BigEndian)

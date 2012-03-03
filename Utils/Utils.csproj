@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DvdReader\DvdMenuReadSectors.cs" />
+    <Compile Include="DvdReader\VTSM_PGCI_LU_MENU.cs" />
+    <Compile Include="DvdReader\VTSM_PGCI_LU_MENUS.cs" />
+    <Compile Include="DvdReader\VTSM_PGCI_UT.cs" />
     <Compile Include="IsoGameReader\DefaultXeX.cs" />
     <Compile Include="IsoGameReader\GameInfo.cs" />
     <Compile Include="Shared\ISharedMethods.cs" />

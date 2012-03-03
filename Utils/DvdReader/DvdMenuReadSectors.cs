@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using XkeyBrew.Utils.BLBinaryReader;
+using XkeyApp.Utils.DvdReader;
 
 namespace XkeyBrew.Utils.DvdReader
 {
@@ -73,44 +74,73 @@ namespace XkeyBrew.Utils.DvdReader
             return videoTSStructure;
         }
 
-        public void FillListWithMenuSectors()
+        public List<byte[]> FillListWithMenuSectors()
         {
-            Dictionary<string, byte[]> files = GetFilesWithSectors(true);
+            List<byte[]> result = new List<byte[]>();
+            Dictionary<string, byte[]> files = GetFilesWithSectors();
 
             foreach (KeyValuePair<string, byte[]> kvp in files)
             {
                 if (kvp.Key.ToUpper().Contains("_0.IFO"))
                 {
+                    //sector of ifo file
                     int sector = BitConverter.ToInt32(kvp.Value, 0);
+                    long address = (long)sector * this.sectorSize;
 
-                    // jumt to 0x0D to read start offset of VTSM_PGCI_UT
-                    br.BaseStream.Seek(((long)sector * this.sectorSize) + 0xD0, SeekOrigin.Begin);
+                    //sector of vob file
+                    int sectorVob = GetSectorOfVtsVob(kvp.Key);
 
-                    // get sector
-                    int startOffsetVTSM_PGCI_UT = br.ReadInt32B();
-
-                    // jump to VTSM_PGCI_UT
-                    br.BaseStream.Seek(((long)sector * this.sectorSize) + (long)(startOffsetVTSM_PGCI_UT * this.sectorSize), SeekOrigin.Begin);
-
-                    // get VTSM_LU start byte
-                    br.BaseStream.Seek(0x0C, SeekOrigin.Current);
-                    int startByteVTSM_LU = br.ReadInt32B();
-
-                    // jump to VTSM_LU
-                    br.BaseStream.Seek(((long)sector * this.sectorSize) + (long)(startOffsetVTSM_PGCI_UT * this.sectorSize) + startByteVTSM_LU, SeekOrigin.Begin);
-                    int numberOfMenus = br.ReadInt16B();
-                    br.ReadInt16();
-                    int endByteVTSM_LU = br.ReadInt32B();
-
-                    for (int i = 1; i < numberOfMenus; i++)
+                    if (sector > 0 && sectorVob > 0)
                     {
-                        long categoryMenu = br.ReadByte();
-                        byte[] categoryByte = BitConverter.GetBytes(categoryMenu);
-                        Array.Reverse(categoryByte);
-                        int menuType = BitConverter.ToInt32(categoryByte, 4);
+                        // jumt to 0x0D to read start offset of VTSM_PGCI_UT
+                        br.BaseStream.Seek(address + 0xD0, SeekOrigin.Begin);
+
+                        // get sector
+                        int startOffsetVTSM_PGCI_UT = br.ReadInt32B();
+                        long addressVTSM_PGCI_UT = address + ((long)startOffsetVTSM_PGCI_UT * this.sectorSize);
+
+                        // jump to VTSM_PGCI_UT
+                        br.BaseStream.Seek(addressVTSM_PGCI_UT, SeekOrigin.Begin);
+                        br.ReadInt32B();
+                        int endByteVTSM_PGCI_UT = br.ReadInt32B();
+                        long addressEndVTSM_PGCI_UT = addressVTSM_PGCI_UT + endByteVTSM_PGCI_UT;
+
+                        br.BaseStream.Seek(addressVTSM_PGCI_UT, SeekOrigin.Begin);
+                        VTSM_PGCI_UT titleSetPGCI = new VTSM_PGCI_UT(br.ReadBytes(endByteVTSM_PGCI_UT));
+
+                        for (int i = 0; i < titleSetPGCI.Menus.Count; i++)
+                        {
+                            if (i % 2 == 1 && titleSetPGCI.Menus[i].IsGameMenu)
+                            {
+                                int gameSector = sectorVob + titleSetPGCI.Menus[i].Sector;
+                                result.Add(BitConverter.GetBytes(gameSector));
+                            }
+                        }
                     }
                 }
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Search for VTS_xx_0.VOB
+        /// </summary>
+        /// <param name="ifoName">VTS_xx_0.IFO ifo file for VTS_xx_0.VOB</param>
+        /// <returns></returns>
+        private int GetSectorOfVtsVob(string ifoName)
+        {
+            Dictionary<string, byte[]> files = GetFilesWithSectors();
+
+            foreach (KeyValuePair<string, byte[]> kvp in files)
+            {
+                if (kvp.Key == ifoName.Replace(".IFO", ".VOB"))
+                {
+                    return BitConverter.ToInt32(kvp.Value, 0);
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -197,7 +227,9 @@ namespace XkeyBrew.Utils.DvdReader
 
                 this.br.BaseStream.Seek(videoTSSector, SeekOrigin.Begin);
 
-                while (this.br.BaseStream.Position < videoTSSector + this.sectorSize)
+                int dirLength = this.sectorSize;
+
+                while (this.br.BaseStream.Position < videoTSSector + dirLength)
                 {
                     byte lengthDirectoryRecord = this.br.ReadByte();
                     if (lengthDirectoryRecord > 0)
@@ -220,7 +252,10 @@ namespace XkeyBrew.Utils.DvdReader
                         string fileName = Encoding.ASCII.GetString(tmp);
 
                         if (lenghtOfFileName == 1 && tmp[0] == 0)
+                        {
                             fileName = ".";
+                            dirLength = sizeOfExtent;
+                        }
                         else if (lenghtOfFileName == 1 && tmp[0] == 1)
                             fileName = "..";
 
