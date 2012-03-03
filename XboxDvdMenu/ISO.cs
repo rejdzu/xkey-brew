@@ -51,7 +51,7 @@ namespace XboxDvdMenu
                 byte[] bannerArray = File.ReadAllBytes(bannerPath);
                 MemoryStream bannerMs = new MemoryStream(bannerArray);
                 Image banner = Image.FromStream(bannerMs);
-                byte[] discIconArray = File.ReadAllBytes(string.Concat(Application.StartupPath, "\\media\\disc.png"));
+                byte[] discIconArray = File.ReadAllBytes(string.Concat(Application.StartupPath, "\\media\\disk.png"));
                 MemoryStream discIconMs = new MemoryStream(discIconArray);
                 ISO sO = this;
                 Image image = Image.FromStream(discIconMs);
