@@ -7,7 +7,7 @@ using XboxDvdMenu.Properties;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Drawing.Drawing2D;
-using XkeyBrew.Utils.IsoGameInfo;
+using XkeyBrew.Utils.IsoGameReader;
 
 namespace XboxDvdMenu
 {
@@ -95,7 +95,7 @@ namespace XboxDvdMenu
             string bannerPath = this.GameBannerBasic(chkArtwork);
             try
             {
-                XkeyBrew.Utils.IsoGameInfo.IsoGameInfo isoFile = new XkeyBrew.Utils.IsoGameInfo.IsoGameInfo(this.Path);
+                IsoGameInfo isoFile = new IsoGameInfo(this.Path);
                 banner = this.AddDiscDataToBanner(this.GameBannerBasic(chkArtwork), isoFile.XeXHeaderInfo.DiscNumber, isoFile.XeXHeaderInfo.DiscCount);
             }
             catch (Exception)

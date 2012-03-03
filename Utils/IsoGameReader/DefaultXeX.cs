@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using XkeyBrew.Utils.BLBinaryReader;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     /// <summary>
     /// Class contains deafault.xex file with properties like, file size, sector of file or XeXHeader

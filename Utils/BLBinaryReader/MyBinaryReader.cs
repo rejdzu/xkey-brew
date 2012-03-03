@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.BLBinaryReader
 {
     public enum EndianType { LittleEndian, BigEndian }
 
@@ -34,6 +34,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
             return base.ReadInt16();
         }
 
+        public short ReadInt16B()
+        {
+            return (short)this.convertToBigEndian(Type.GetType("System.Int16"));
+        }
+
         public override int ReadInt32()
         {
             if (this.endianType == EndianType.BigEndian)
@@ -41,6 +46,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
                 return (int)this.convertToBigEndian(Type.GetType("System.Int32"));
             }
             return base.ReadInt32();
+        }
+
+        public int ReadInt32B()
+        {
+            return (int)this.convertToBigEndian(Type.GetType("System.Int32"));
         }
 
         public override long ReadInt64()
@@ -52,6 +62,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
             return base.ReadInt64();
         }
 
+        public long ReadInt64B()
+        {
+            return (long)this.convertToBigEndian(Type.GetType("System.Int64"));
+        }
+
         public override ushort ReadUInt16()
         {
             if (this.endianType == EndianType.BigEndian)
@@ -59,6 +74,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
                 return (ushort)this.convertToBigEndian(Type.GetType("System.UInt16"));
             }
             return base.ReadUInt16();
+        }
+
+        public ushort ReadUInt16B()
+        {
+            return (ushort)this.convertToBigEndian(Type.GetType("System.UInt16"));
         }
 
         public override uint ReadUInt32()
@@ -70,6 +90,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
             return base.ReadUInt32();
         }
 
+        public uint ReadUInt32B()
+        {
+            return (uint)this.convertToBigEndian(Type.GetType("System.UInt32"));
+        }
+
         public override ulong ReadUInt64()
         {
             if (this.endianType == EndianType.BigEndian)
@@ -77,6 +102,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
                 return (ulong)this.convertToBigEndian(Type.GetType("System.UInt64"));
             }
             return base.ReadUInt64();
+        }
+
+        public ulong ReadUInt64B()
+        {
+            return (ulong)this.convertToBigEndian(Type.GetType("System.UInt64"));
         }
 
         public override float ReadSingle()
@@ -88,6 +118,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
             return base.ReadSingle();
         }
 
+        public float ReadSingleB()
+        {
+            return (float)this.convertToBigEndian(Type.GetType("System.Single"));
+        }
+
         public override double ReadDouble()
         {
             if (this.endianType == EndianType.BigEndian)
@@ -95,6 +130,11 @@ namespace XkeyBrew.Utils.IsoGameInfo
                 return (double)this.convertToBigEndian(Type.GetType("System.Double"));
             }
             return base.ReadDouble();
+        }
+
+        public double ReadDoubleB()
+        {
+            return (double)this.convertToBigEndian(Type.GetType("System.Double"));
         }
 
         private object convertToBigEndian(Type type)

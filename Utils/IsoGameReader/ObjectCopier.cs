@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     /// <summary>
     /// Provides a method for performing a deep copy of an object.

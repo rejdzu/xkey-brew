@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using XkeyBrew.Utils.BLBinaryReader;
 
-namespace XkeyBrew.Utils.DvdMenuReadSectors
+namespace XkeyBrew.Utils.DvdReader
 {
     public class DvdMenuReadSectors
     {
         private FileStream fs = null;
-        private BinaryReader br = null;
+        private MyBinaryReader br = null;
         private int sectorSize = 2048;
         private int pathOffset = 0x84;
 
@@ -23,7 +24,7 @@ namespace XkeyBrew.Utils.DvdMenuReadSectors
             try
             {
                 this.fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                this.br = new BinaryReader(this.fs);
+                this.br = new MyBinaryReader(this.fs);
             }
             catch (Exception ex)
             {
@@ -70,6 +71,46 @@ namespace XkeyBrew.Utils.DvdMenuReadSectors
             }
 
             return videoTSStructure;
+        }
+
+        public void FillListWithMenuSectors()
+        {
+            Dictionary<string, byte[]> files = GetFilesWithSectors(true);
+
+            foreach (KeyValuePair<string, byte[]> kvp in files)
+            {
+                if (kvp.Key.ToUpper().Contains("_0.IFO"))
+                {
+                    int sector = BitConverter.ToInt32(kvp.Value, 0);
+
+                    // jumt to 0x0D to read start offset of VTSM_PGCI_UT
+                    br.BaseStream.Seek(((long)sector * this.sectorSize) + 0xD0, SeekOrigin.Begin);
+
+                    // get sector
+                    int startOffsetVTSM_PGCI_UT = br.ReadInt32B();
+
+                    // jump to VTSM_PGCI_UT
+                    br.BaseStream.Seek(((long)sector * this.sectorSize) + (long)(startOffsetVTSM_PGCI_UT * this.sectorSize), SeekOrigin.Begin);
+
+                    // get VTSM_LU start byte
+                    br.BaseStream.Seek(0x0C, SeekOrigin.Current);
+                    int startByteVTSM_LU = br.ReadInt32B();
+
+                    // jump to VTSM_LU
+                    br.BaseStream.Seek(((long)sector * this.sectorSize) + (long)(startOffsetVTSM_PGCI_UT * this.sectorSize) + startByteVTSM_LU, SeekOrigin.Begin);
+                    int numberOfMenus = br.ReadInt16B();
+                    br.ReadInt16();
+                    int endByteVTSM_LU = br.ReadInt32B();
+
+                    for (int i = 1; i < numberOfMenus; i++)
+                    {
+                        long categoryMenu = br.ReadByte();
+                        byte[] categoryByte = BitConverter.GetBytes(categoryMenu);
+                        Array.Reverse(categoryByte);
+                        int menuType = BitConverter.ToInt32(categoryByte, 4);
+                    }
+                }
+            }
         }
 
         /// <summary>

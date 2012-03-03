@@ -10,7 +10,7 @@ using System.Web;
 using System.Xml;
 using XkeyBrew.Utils.Shared;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     /// <summary>
     /// Contains game information from web

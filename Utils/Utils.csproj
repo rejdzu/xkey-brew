@@ -44,15 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DvdMenuReadSectors\DvdMenuReadSectors.cs" />
-    <Compile Include="IsoGameInfo\DefaultXeX.cs" />
-    <Compile Include="IsoGameInfo\GameInfo.cs" />
+    <Compile Include="DvdReader\DvdMenuReadSectors.cs" />
+    <Compile Include="IsoGameReader\DefaultXeX.cs" />
+    <Compile Include="IsoGameReader\GameInfo.cs" />
     <Compile Include="Shared\ISharedMethods.cs" />
-    <Compile Include="IsoGameInfo\Iso.cs" />
-    <Compile Include="IsoGameInfo\IsoGameInfo.cs" />
-    <Compile Include="IsoGameInfo\MyBinaryReader.cs" />
-    <Compile Include="IsoGameInfo\ObjectCopier.cs" />
-    <Compile Include="IsoGameInfo\XeXHeader.cs" />
+    <Compile Include="IsoGameReader\Iso.cs" />
+    <Compile Include="IsoGameReader\IsoGameInfo.cs" />
+    <Compile Include="BLBinaryReader\MyBinaryReader.cs" />
+    <Compile Include="IsoGameReader\ObjectCopier.cs" />
+    <Compile Include="IsoGameReader\XeXHeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

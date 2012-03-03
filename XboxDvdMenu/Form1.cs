@@ -13,7 +13,7 @@ using System.Web;
 using System.Windows.Forms;
 using System.Xml;
 using Ini;
-using IsoGameInfo;
+using XkeyBrew.Utils.DvdReader;
 
 namespace XboxDvdMenu
 {

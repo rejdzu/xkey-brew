@@ -6,7 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     public class IsoGameInfo : IDisposable
     {
@@ -51,7 +51,7 @@ namespace XkeyBrew.Utils.IsoGameInfo
                 this.defaultXexFile = new byte[iso.DefaultXeX.File.Length];
                 iso.DefaultXeX.File.CopyTo(this.defaultXexFile, 0);
                 this.isoType = iso.IsoType;
-                this.gameInfo = new GameInfo(this.xexHeader.TitleId);
+                //this.gameInfo = new GameInfo(this.xexHeader.TitleId);
 
                 iso.Dispose();
                 iso = null;

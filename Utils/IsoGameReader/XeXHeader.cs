@@ -5,8 +5,9 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using XkeyBrew.Utils.Shared;
+using XkeyBrew.Utils.BLBinaryReader;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     /// <summary>
     /// Class contains info from XeXHeader of deafult.xex file

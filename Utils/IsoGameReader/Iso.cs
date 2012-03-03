@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using XkeyBrew.Utils;
+using XkeyBrew.Utils.BLBinaryReader;
 using XkeyBrew.Utils.Shared;
 
-namespace XkeyBrew.Utils.IsoGameInfo
+namespace XkeyBrew.Utils.IsoGameReader
 {
     /// <summary>
     /// Enum contains 3 types of xbox media
